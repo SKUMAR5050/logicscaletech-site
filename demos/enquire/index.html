@@ -1,0 +1,195 @@
+<!doctype html>
+<html lang="en-IN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Grocery Store Website Demo | Logic Scale Tech</title>
+<meta name="description" content="Sample online grocery store with product search, cart, coupon, free-delivery bar, delivery slots and checkout. Get an online store like this for your kirana or supermarket.">
+<meta name="theme-color" content="#1F7A3E">
+<link rel="canonical" href="https://logicscaletech.com/demos/grocery/">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,700;12..96,800&family=Instrument+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../demos.css">
+<style>
+:root{--g:#1F7A3E;--gd:#155a2d;--gl:#E8F5EC;--or:#FF8A1F;--yel:#FFD54A;--ink:#1A2B20;--soft:#5A6E61;--line:#DCE8DF;--bg:#F7FAF6}
+*{box-sizing:border-box}html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font:16.5px/1.55 "Instrument Sans",system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+a{color:inherit}.w{max-width:1160px;margin:0 auto;padding:0 18px}
+h1,h2,h3{font-family:"Bricolage Grotesque",system-ui,sans-serif;letter-spacing:-.02em;margin:0;line-height:1.08}
+.top{background:#fff;border-bottom:1px solid var(--line);position:sticky;top:0;z-index:50}
+.top .w{display:flex;align-items:center;gap:14px;padding-block:12px;flex-wrap:wrap}
+.logo{font:800 24px "Bricolage Grotesque",system-ui,sans-serif;color:var(--g);text-decoration:none;display:flex;align-items:center;gap:8px}.logo i{font-style:normal;font-size:28px}
+.pin{display:flex;align-items:center;gap:6px;background:var(--gl);border-radius:10px;padding:8px 12px;font-size:14px;cursor:pointer;border:0;font-family:inherit;color:var(--gd);font-weight:600}
+.search{flex:1;min-width:200px;position:relative}.search input{width:100%;padding:12px 14px 12px 40px;border:1.5px solid var(--line);border-radius:12px;font:16px "Instrument Sans",system-ui,sans-serif;background:var(--bg)}.search input:focus{outline:2px solid var(--g);border-color:var(--g);background:#fff}.search::before{content:"🔍";position:absolute;left:13px;top:11px}
+.cartb{background:var(--g);color:#fff;border:0;border-radius:12px;padding:11px 16px;font:700 15.5px "Instrument Sans",system-ui,sans-serif;cursor:pointer;display:flex;gap:8px;align-items:center}.cartb:hover{background:var(--gd)}.cartb span{background:var(--yel);color:#3a2d00;border-radius:99px;padding:1px 8px;font-size:13.5px}
+.hero{background:linear-gradient(120deg,#1F7A3E 0%,#2E9B52 55%,#7CC36A 100%);color:#fff;position:relative;overflow:hidden}
+.hero::after{content:"🥬🍅🥕🍎🥛";position:absolute;right:-10px;top:10px;font-size:90px;opacity:.16;letter-spacing:10px;transform:rotate(-8deg);white-space:nowrap}
+.hero .w{display:grid;grid-template-columns:1.2fr .8fr;gap:30px;align-items:center;padding-block:44px}
+.hero h1{font-size:clamp(36px,5.4vw,62px)}.hero h1 em{font-style:normal;color:var(--yel)}
+.hero p{font-size:19px;opacity:.95;max-width:27em;margin:16px 0 24px}
+.btn{display:inline-flex;align-items:center;gap:8px;background:var(--or);color:#fff!important;border:0;border-radius:12px;padding:13px 22px;font:700 16px "Instrument Sans",system-ui,sans-serif;cursor:pointer;text-decoration:none}.btn:hover{filter:brightness(1.07)}.btn.o{background:#fff;color:var(--g)!important}
+.hbox{background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.3);border-radius:20px;padding:20px;backdrop-filter:blur(4px)}
+.hbox b{font:800 20px "Bricolage Grotesque",system-ui,sans-serif}.hbox ul{list-style:none;margin:10px 0 0;padding:0}.hbox li{padding:6px 0;border-top:1px solid rgba(255,255,255,.2);font-size:15.5px}
+.perks{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:-22px;position:relative;z-index:2}
+.perk{background:#fff;border:1px solid var(--line);border-radius:14px;padding:14px;text-align:center;font-size:14.5px;box-shadow:0 10px 24px -16px rgba(0,0,0,.3)}.perk b{display:block;font-size:22px}
+.sec{padding-top:44px}.sec h2{font-size:clamp(26px,3.6vw,38px)}.sec .hd{display:flex;justify-content:space-between;align-items:end;gap:10px;flex-wrap:wrap}
+.cats{display:flex;gap:10px;overflow-x:auto;padding:16px 0 6px;scrollbar-width:none}.cats::-webkit-scrollbar{display:none}
+.cat{flex:none;display:flex;flex-direction:column;align-items:center;gap:6px;background:#fff;border:1.5px solid var(--line);border-radius:16px;padding:12px 16px;min-width:92px;cursor:pointer;font:600 13.5px "Instrument Sans",system-ui,sans-serif;color:var(--ink)}.cat span{font-size:30px}.cat.on{border-color:var(--g);background:var(--gl);color:var(--gd)}
+.offers{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:14px;margin-top:20px}
+.of{border-radius:18px;padding:20px;color:#fff;position:relative;overflow:hidden}.of b{font:800 24px "Bricolage Grotesque",system-ui,sans-serif;display:block}.of small{opacity:.92;font-size:14.5px}.of code{background:rgba(255,255,255,.22);padding:2px 8px;border-radius:6px;font:600 13.5px "JetBrains Mono",ui-monospace,monospace}.of i{position:absolute;right:10px;bottom:-6px;font-size:64px;font-style:normal;opacity:.5}
+.prods{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:14px;margin-top:16px}
+.pr{background:#fff;border:1px solid var(--line);border-radius:16px;padding:14px;display:flex;flex-direction:column;position:relative;transition:.15s}.pr:hover{box-shadow:0 14px 30px -20px rgba(31,122,62,.7);border-color:#b5d9c0}
+.pr .em{height:96px;display:grid;place-items:center;font-size:62px;background:var(--bg);border-radius:12px;margin-bottom:10px}.pr .off{position:absolute;top:10px;left:10px;background:var(--or);color:#fff;font:700 11.5px "Instrument Sans",system-ui,sans-serif;padding:3px 8px;border-radius:99px}
+.pr b{font-size:16px;line-height:1.25}.pr small{color:var(--soft);font-size:13.5px;margin-bottom:8px}.pr .row{margin-top:auto;display:flex;align-items:center;justify-content:space-between;gap:8px}.pr .p{font:800 19px "Bricolage Grotesque",system-ui,sans-serif}.pr .p s{font:400 13px "Instrument Sans",system-ui,sans-serif;color:#99a79d;margin-left:4px}
+.add{background:#fff;border:1.5px solid var(--g);color:var(--g);font:700 14.5px "Instrument Sans",system-ui,sans-serif;border-radius:10px;padding:7px 16px;cursor:pointer}.add:hover{background:var(--g);color:#fff}
+.qty{display:flex;align-items:center;background:var(--g);color:#fff;border-radius:10px}.qty button{background:none;border:0;color:#fff;font:700 18px "Instrument Sans",system-ui,sans-serif;width:30px;height:32px;cursor:pointer}.qty span{min-width:20px;text-align:center;font-weight:700}
+.none{padding:40px;text-align:center;color:var(--soft)}
+.drawer{position:fixed;inset:0;z-index:150;display:none}.drawer.on{display:block}.drawer .bg{position:absolute;inset:0;background:rgba(10,30,18,.55)}
+.panel{position:absolute;right:0;top:0;bottom:0;width:min(420px,100%);background:#fff;display:flex;flex-direction:column}
+.panel header{padding:16px 18px;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;align-items:center}.panel header h3{font-size:23px}.xb{background:var(--bg);border:0;border-radius:10px;width:36px;height:36px;font-size:18px;cursor:pointer}
+.pb{flex:1;overflow:auto;padding:14px 18px}
+.free{background:var(--gl);border-radius:12px;padding:12px 14px;font-size:14.5px;margin-bottom:12px}.bar{height:8px;background:#cfe6d6;border-radius:99px;margin-top:8px;overflow:hidden}.bar i{display:block;height:100%;background:var(--g);width:0;transition:width .3s}
+.li{display:flex;gap:12px;align-items:center;padding:10px 0;border-bottom:1px solid var(--line)}.li .em{font-size:34px;width:52px;height:52px;background:var(--bg);border-radius:12px;display:grid;place-items:center}.li .t{flex:1;font-size:15px}.li .t b{display:block}.li .t small{color:var(--soft)}
+.pf{border-top:1px solid var(--line);padding:14px 18px 18px;background:#fff}.pf .cp{display:flex;gap:8px;margin-bottom:10px}.pf input,.pf select,.pf textarea{width:100%;padding:11px 12px;border:1.5px solid var(--line);border-radius:10px;font:15.5px "Instrument Sans",system-ui,sans-serif;margin-bottom:8px}
+.pf .cp input{margin:0}.pf .cp button{background:var(--ink);color:#fff;border:0;border-radius:10px;padding:0 16px;font:600 14.5px "Instrument Sans",system-ui,sans-serif;cursor:pointer}
+.tot{display:flex;justify-content:space-between;padding:3px 0;font-size:15.5px}.tot.g{font:800 20px "Bricolage Grotesque",system-ui,sans-serif;padding-top:8px;border-top:1px dashed var(--line);margin-top:6px}.ms{font-size:13.5px;color:var(--g);min-height:20px}
+.checkout{width:100%;justify-content:center;background:var(--g);margin-top:6px}
+.how{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px;margin-top:20px}.hw{background:#fff;border:1px solid var(--line);border-radius:16px;padding:20px}.hw span{font-size:34px}.hw b{display:block;margin:6px 0 2px;font:700 18px "Bricolage Grotesque",system-ui,sans-serif}.hw p{margin:0;color:var(--soft);font-size:15px}
+.foot{padding:40px 0 40px;margin-top:50px;border-top:1px solid var(--line);color:var(--soft);font-size:14.5px}
+.toast{position:fixed;left:50%;bottom:76px;transform:translateX(-50%);background:var(--ink);color:#fff;padding:10px 18px;border-radius:99px;font-size:14.5px;opacity:0;pointer-events:none;transition:.25s;z-index:300}.toast.on{opacity:1}
+@media(max-width:780px){.hero .w{grid-template-columns:1fr}.hero::after{display:none}.perks{grid-template-columns:repeat(2,1fr)}.prods{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.pr .row{flex-wrap:wrap}.pr{padding:10px}}
+</style>
+</head>
+<body>
+<div class="dbar"><span><span class="tag">Demo</span><span class="hide-s">Sample grocery store by Logic Scale Tech. Not a real store.</span></span><span><a href="/demos/">All demos</a> &nbsp;·&nbsp; <a class="get" href="/demos/enquire/?type=Grocery%20Store">Get a website like this</a></span></div>
+
+<div class="top"><div class="w">
+  <a class="logo" href="#"><i>🛒</i>FreshBasket</a>
+  <button class="pin" id="pin" type="button">📍 Deliver to: <span id="pinv">400078</span> ▾</button>
+  <label class="search"><input id="q" type="search" placeholder="Search milk, atta, tomato, biscuits…" aria-label="Search products"></label>
+  <button class="cartb" id="cartb" type="button">🧺 Cart <span id="cn">0</span></button>
+</div></div>
+
+<div class="hero"><div class="w">
+  <div><h1>Fresh groceries at your door <em>in 30 minutes.</em></h1><p>Fruits, vegetables, dairy and daily needs from your trusted neighbourhood store. Pay by UPI or cash on delivery.</p>
+  <a class="btn" href="#shop">Start shopping</a> <a class="btn o" href="#" onclick="return wa()">Order on WhatsApp</a></div>
+  <div class="hbox"><b>Today's delivery slots</b><ul><li>⚡ Express · 30 minutes (₹29)</li><li>🕘 9 am – 12 pm · Free above ₹499</li><li>🕐 4 pm – 7 pm · Free above ₹499</li></ul></div>
+</div></div>
+
+<div class="w"><div class="perks">
+  <div class="perk"><b>🚚</b>Free delivery above ₹499</div><div class="perk"><b>🌿</b>Farm-fresh daily</div><div class="perk"><b>💳</b>UPI · Card · Cash</div><div class="perk"><b>↩️</b>Easy returns</div>
+</div></div>
+
+<div class="w sec" id="offers"><div class="offers">
+  <div class="of" style="background:linear-gradient(135deg,#FF8A1F,#E85D04)"><b>Flat 10% off</b><small>on your first order. Use code <code>FRESH10</code></small><i>🎁</i></div>
+  <div class="of" style="background:linear-gradient(135deg,#7B3FE4,#4B1FA8)"><b>Buy 2 get 1 free</b><small>on selected fruits every weekend</small><i>🍎</i></div>
+  <div class="of" style="background:linear-gradient(135deg,#0F9AA8,#08606a)"><b>₹50 off above ₹999</b><small>Use code <code>BIG50</code></small><i>🧴</i></div>
+</div></div>
+
+<div class="w sec" id="shop">
+  <div class="hd"><h2>Shop by category</h2><span style="color:var(--soft);font-size:14.5px" id="rc"></span></div>
+  <div class="cats" id="cats"></div>
+  <div class="prods" id="prods"></div>
+</div>
+
+<div class="w sec"><h2>How it works</h2>
+  <div class="how"><div class="hw"><span>🔍</span><b>1. Pick items</b><p>Search or browse and add to cart.</p></div><div class="hw"><span>🕒</span><b>2. Choose a slot</b><p>Express or a time that suits you.</p></div><div class="hw"><span>💳</span><b>3. Pay your way</b><p>UPI, card or cash on delivery.</p></div><div class="hw"><span>🏠</span><b>4. Relax</b><p>We pack fresh and deliver to your door.</p></div></div>
+</div>
+
+<div class="foot"><div class="w">© <span id="yr">2026</span> FreshBasket (demo). Sample products and prices for demonstration only.</div></div>
+
+<div class="getown"><div class="w">
+  <p class="k">Made by Logic Scale Tech</p>
+  <h2>Want an online store like this for your grocery shop?</h2>
+  <p class="l">Take your shop online with your products, your prices and your delivery area. Customers order from their phone, you pack and deliver.</p>
+  <ul>
+    <li><b>Your product catalogue</b>Add products, prices and offers yourself. No coding needed.</li>
+    <li><b>Orders on WhatsApp</b>Every order reaches your phone with the customer's address.</li>
+    <li><b>Customer mobile app</b>Your own Android and iOS app with reorder and loyalty points.</li>
+    <li><b>Online payments</b>UPI, cards and wallets, with cash on delivery too.</li>
+    <li><b>Stock and delivery tracking</b>Know what is in stock and where every order is.</li>
+    <li><b>Fully customised</b>Your brand, your area, your rules. Tell us what you need.</li>
+  </ul>
+  <div class="row"><a class="b1" href="/demos/enquire/?type=Grocery%20Store">Get my online store</a><a class="b2" href="/demos/">See other demos</a></div>
+  <small>Takes 2 minutes to fill. We reply within one working day.</small>
+</div></div>
+<div class="dfoot">Demo by <a href="/">Logic Scale Tech</a>, Mumbai · support@logicscaletech.com</div>
+<a class="dfloat" style="bottom:70px" href="/demos/enquire/?type=Grocery%20Store">Get a website like this →</a>
+
+<div class="drawer" id="drawer"><div class="bg" id="dbg"></div>
+  <aside class="panel" role="dialog" aria-modal="true" aria-label="Your cart">
+    <header><h3>Your cart</h3><button class="xb" id="dx" type="button" aria-label="Close cart">✕</button></header>
+    <div class="pb" id="pb"></div>
+    <div class="pf" id="pf"></div>
+  </aside></div>
+<div class="toast" id="toast"></div>
+
+<script>
+(function(){
+document.getElementById('yr').textContent=new Date().getFullYear();
+var P=[
+['Fruits','🍎','Royal Gala Apples','1 kg',180,220],['Fruits','🍌','Robusta Bananas','1 dozen',60,70],['Fruits','🍇','Seedless Grapes','500 g',90,110],['Fruits','🥭','Alphonso Mango','1 kg',420,500],
+['Vegetables','🍅','Fresh Tomatoes','1 kg',40,50],['Vegetables','🥕','Carrots','500 g',35,45],['Vegetables','🧅','Onion','1 kg',38,45],['Vegetables','🥔','Potato','1 kg',32,40],['Vegetables','🥬','Spinach (Palak)','1 bunch',20,25],['Vegetables','🌽','Sweet Corn','2 pcs',30,40],
+['Dairy','🥛','Toned Milk','1 litre',56,56],['Dairy','🧈','Salted Butter','100 g',58,62],['Dairy','🧀','Cheese Slices','200 g',125,140],['Dairy','🥚','Farm Eggs','12 pcs',84,96],['Dairy','🍦','Curd (Dahi)','400 g',38,42],
+['Staples','🌾','Wheat Atta','5 kg',235,265],['Staples','🍚','Basmati Rice','5 kg',520,600],['Staples','🫘','Toor Dal','1 kg',165,185],['Staples','🛢️','Sunflower Oil','1 litre',142,160],['Staples','🧂','Iodised Salt','1 kg',24,28],
+['Snacks','🍪','Cream Biscuits','3 packs',45,55],['Snacks','🥔','Potato Chips','150 g',50,60],['Snacks','☕','Tea Powder','500 g',230,260],['Snacks','🍫','Dark Chocolate','80 g',110,130],
+['Home','🧴','Dish Wash Liquid','750 ml',135,155],['Home','🧼','Bath Soap (4 pack)','4 × 100 g',140,170],['Home','🧻','Tissue Rolls','6 rolls',180,220],['Home','🧽','Floor Cleaner','1 litre',165,190]];
+var CAT=[['All','🛍️'],['Fruits','🍎'],['Vegetables','🥦'],['Dairy','🥛'],['Staples','🌾'],['Snacks','🍪'],['Home','🧴']];
+var cat='All',qs='',cart={},coupon='',FREE=499;
+function inr(n){return '₹'+Math.round(n).toLocaleString('en-IN')}
+var cats=document.getElementById('cats'),prods=document.getElementById('prods');
+function drawCats(){cats.innerHTML=CAT.map(function(c){return '<button class="cat'+(c[0]===cat?' on':'')+'" data-c="'+c[0]+'" type="button"><span>'+c[1]+'</span>'+c[0]+'</button>'}).join('')}
+function drawProds(){
+ var l=P.map(function(p,i){return {p:p,i:i}}).filter(function(x){return (cat==='All'||x.p[0]===cat)&&(!qs||(x.p[2]+' '+x.p[0]).toLowerCase().indexOf(qs)>-1)});
+ document.getElementById('rc').textContent=l.length+' items';
+ prods.innerHTML=l.length?l.map(function(x){var p=x.p,i=x.i,q=cart[i]||0,d=Math.round((1-p[4]/p[5])*100);
+  return '<div class="pr">'+(d>0?'<span class="off">'+d+'% OFF</span>':'')+'<div class="em">'+p[1]+'</div><b>'+p[2]+'</b><small>'+p[3]+'</small><div class="row"><span class="p">'+inr(p[4])+(p[5]>p[4]?'<s>'+inr(p[5])+'</s>':'')+'</span>'+
+  (q?'<div class="qty"><button data-m="'+i+'" type="button" aria-label="Less">−</button><span>'+q+'</span><button data-a="'+i+'" type="button" aria-label="More">+</button></div>':'<button class="add" data-a="'+i+'" type="button">ADD</button>')+'</div></div>'}).join(''):'<div class="none" style="grid-column:1/-1">No items found. Try another word.</div>'}
+function sub(){var s=0;Object.keys(cart).forEach(function(i){s+=cart[i]*P[i][4]});return s}
+function count(){var n=0;Object.keys(cart).forEach(function(i){n+=cart[i]});return n}
+function setQ(i,d){cart[i]=(cart[i]||0)+d;if(cart[i]<=0)delete cart[i];refresh()}
+function refresh(){document.getElementById('cn').textContent=count();drawProds();drawCart()}
+cats.onclick=function(e){var b=e.target.closest('.cat');if(b){cat=b.dataset.c;drawCats();drawProds()}};
+prods.onclick=function(e){var a=e.target.dataset.a,m=e.target.dataset.m;if(a!==undefined){setQ(+a,1);if(!cart[a]||cart[a]===1)toast('Added to cart')}if(m!==undefined)setQ(+m,-1)};
+document.getElementById('q').oninput=function(){qs=this.value.trim().toLowerCase();drawProds()};
+var d=document.getElementById('drawer'),pb=document.getElementById('pb'),pf=document.getElementById('pf');
+function disc(s){return coupon==='FRESH10'?s*.1:coupon==='BIG50'&&s>=999?50:0}
+function drawCart(){
+ var ids=Object.keys(cart),s=sub();
+ if(!ids.length){pb.innerHTML='<div class="none">🧺<br>Your cart is empty.<br>Add some fresh items!</div>';pf.innerHTML='';return}
+ var pct=Math.min(100,s/FREE*100);
+ pb.innerHTML='<div class="free">'+(s>=FREE?'🎉 You get <b>free delivery</b>!':'Add <b>'+inr(FREE-s)+'</b> more for free delivery')+'<div class="bar"><i style="width:'+pct+'%"></i></div></div>'+
+ ids.map(function(i){var p=P[i];return '<div class="li"><div class="em">'+p[1]+'</div><div class="t"><b>'+p[2]+'</b><small>'+p[3]+' · '+inr(p[4])+'</small></div><div class="qty"><button data-m="'+i+'" type="button" aria-label="Less">−</button><span>'+cart[i]+'</span><button data-a="'+i+'" type="button" aria-label="More">+</button></div></div>'}).join('');
+ var ds=disc(s),dl=s>=FREE?0:29,tot=s-ds+dl;
+ pf.innerHTML='<div class="cp"><input id="cc" placeholder="Coupon code (try FRESH10)" value="'+coupon+'"><button id="ca" type="button">Apply</button></div><div class="ms" id="ms"></div>'+
+ '<div class="tot"><span>Items</span><span>'+inr(s)+'</span></div>'+(ds?'<div class="tot" style="color:var(--g)"><span>Coupon discount</span><span>− '+inr(ds)+'</span></div>':'')+'<div class="tot"><span>Delivery</span><span>'+(dl?inr(dl):'FREE')+'</span></div><div class="tot g"><span>To pay</span><span>'+inr(tot)+'</span></div>'+
+ '<button class="btn checkout" id="co" type="button">Checkout · '+inr(tot)+'</button>'}
+pb.onclick=function(e){var a=e.target.dataset.a,m=e.target.dataset.m;if(a!==undefined)setQ(+a,1);if(m!==undefined)setQ(+m,-1)};
+pf.onclick=function(e){
+ if(e.target.id==='ca'){var v=document.getElementById('cc').value.trim().toUpperCase();
+  if(v==='FRESH10'||(v==='BIG50'&&sub()>=999)){coupon=v;drawCart();document.getElementById('ms').textContent='Coupon applied ✓'}
+  else{coupon='';document.getElementById('ms').textContent=v==='BIG50'?'BIG50 needs ₹999 or more':'Invalid code. Try FRESH10';document.getElementById('ms').style.color='#c0392b'}}
+ if(e.target.id==='co')checkout()};
+function checkout(){
+ pb.innerHTML='<h3 style="font-size:22px;margin-bottom:10px">Delivery details</h3><p style="color:var(--soft);font-size:14px;margin:0 0 12px">This is a demo. Nothing is sent.</p>'+
+ '<input id="n" placeholder="Your name" style="width:100%;padding:11px;border:1.5px solid var(--line);border-radius:10px;margin-bottom:8px;font:15.5px inherit">'+
+ '<input id="ph" placeholder="Mobile number" inputmode="tel" style="width:100%;padding:11px;border:1.5px solid var(--line);border-radius:10px;margin-bottom:8px;font:15.5px inherit">'+
+ '<textarea id="ad" rows="3" placeholder="Flat, building, area" style="width:100%;padding:11px;border:1.5px solid var(--line);border-radius:10px;margin-bottom:8px;font:15.5px inherit"></textarea>'+
+ '<select id="sl" style="width:100%;padding:11px;border:1.5px solid var(--line);border-radius:10px;margin-bottom:8px;font:15.5px inherit"><option>Express · 30 minutes</option><option>Today 4 pm – 7 pm</option><option>Tomorrow 9 am – 12 pm</option></select>'+
+ '<select id="py" style="width:100%;padding:11px;border:1.5px solid var(--line);border-radius:10px;font:15.5px inherit"><option>UPI</option><option>Card</option><option>Cash on delivery</option></select>';
+ pf.innerHTML='<button class="btn checkout" id="po" type="button">Place order</button>';
+ pf.onclick=function(e){if(e.target.id==='po'){var id='FB'+Math.floor(10000+Math.random()*89999),nm=document.getElementById('n').value||'friend';
+  pb.innerHTML='<div class="none" style="padding-top:60px"><div style="font-size:64px">✅</div><h3 style="font-size:26px;margin:8px 0">Order placed!</h3><p>Thank you, '+nm+'. Order <b>#'+id+'</b> is being packed.<br>Delivery: '+document.getElementById('sl').value+'</p><p style="font-size:14px">In your real store, this order reaches your phone and dashboard the moment it is placed.</p><a class="btn" href="/demos/enquire/?type=Grocery%20Store">I want a store like this</a></div>';
+  pf.innerHTML='';cart={};coupon='';document.getElementById('cn').textContent=0;drawProds()}}}
+function open_(){d.classList.add('on');pf.onclick=pfDefault;drawCart()}
+var pfDefault=pf.onclick;
+document.getElementById('cartb').onclick=open_;document.getElementById('dx').onclick=function(){d.classList.remove('on')};document.getElementById('dbg').onclick=function(){d.classList.remove('on')};
+document.addEventListener('keydown',function(e){if(e.key==='Escape')d.classList.remove('on')});
+document.getElementById('pin').onclick=function(){var v=prompt('Enter your pincode to check delivery (demo)','400078');if(v){document.getElementById('pinv').textContent=v;toast(/^4000\d\d$/.test(v)||/^4\d{5}$/.test(v)?'Great! We deliver to '+v:'Sorry, not delivering to '+v+' yet')}};
+var tt;function toast(t){var e=document.getElementById('toast');e.textContent=t;e.classList.add('on');clearTimeout(tt);tt=setTimeout(function(){e.classList.remove('on')},1600)}
+window.wa=function(){toast('Your real store opens WhatsApp with your number');return false};
+drawCats();refresh();
+})();
+</script>
+</body>
+</html>
