@@ -1,0 +1,29 @@
+/* Shared styles for Logic Scale Tech demo websites. Each demo page has its own look; this file holds the common demo bar, "get your own" section and floating button. */
+.dbar{position:sticky;top:0;z-index:100;background:#0B1F3A;color:#F1F5FB;font:500 13.5px/1.3 "Instrument Sans",system-ui,sans-serif;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:6px 14px;padding:9px max(16px,env(safe-area-inset-left)) 9px max(16px,env(safe-area-inset-right))}
+.dbar a{color:#8DB2FF;text-decoration:none;font-weight:600}
+.dbar a:hover{text-decoration:underline}
+.dbar .tag{background:#8DB2FF;color:#0B1F3A;font:700 11px/1 "JetBrains Mono",ui-monospace,monospace;letter-spacing:.08em;text-transform:uppercase;padding:4px 7px;border-radius:4px;margin-right:8px}
+.dbar .get{background:#1B4FD8;color:#fff;padding:7px 13px;border-radius:6px}
+.dbar .get:hover{text-decoration:none;filter:brightness(1.1)}
+
+.getown{background:#0B1F3A;color:#F1F5FB;padding:72px 0;font-family:"Instrument Sans",system-ui,sans-serif}
+.getown .w{max-width:1100px;margin:0 auto;padding:0 20px}
+.getown .k{font:500 12.5px "JetBrains Mono",ui-monospace,monospace;letter-spacing:.1em;text-transform:uppercase;color:#8DB2FF;margin:0 0 14px}
+.getown h2{font:800 clamp(30px,5vw,50px)/1.05 "Bricolage Grotesque",system-ui,sans-serif;letter-spacing:-.03em;margin:0 0 14px;max-width:16em}
+.getown p.l{font-size:18px;line-height:1.6;color:#B3C0D4;max-width:40em;margin:0 0 30px}
+.getown ul{list-style:none;margin:0 0 34px;padding:0;display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:12px}
+.getown li{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);border-radius:10px;padding:14px 16px;font-size:15.5px;line-height:1.45}
+.getown li b{display:block;color:#fff;margin-bottom:2px}
+.getown .row{display:flex;flex-wrap:wrap;gap:12px;align-items:center}
+.getown .b1{background:#1B4FD8;color:#fff;font-weight:600;text-decoration:none;padding:15px 26px;border-radius:8px;font-size:17px}
+.getown .b1:hover{filter:brightness(1.12)}
+.getown .b2{color:#F1F5FB;border:1.5px solid rgba(255,255,255,.4);text-decoration:none;font-weight:600;padding:13px 22px;border-radius:8px;font-size:16px}
+.getown .b2:hover{background:rgba(255,255,255,.1)}
+.getown small{display:block;margin-top:16px;color:#8fa0b8;font-size:13.5px}
+
+.dfoot{background:#07152a;color:#8fa0b8;font:14px/1.5 "Instrument Sans",system-ui,sans-serif;padding:20px;text-align:center}
+.dfoot a{color:#8DB2FF}
+
+.dfloat{position:fixed;right:max(14px,env(safe-area-inset-right));bottom:max(14px,env(safe-area-inset-bottom));z-index:99;background:#1B4FD8;color:#fff;text-decoration:none;font:600 15px/1 "Instrument Sans",system-ui,sans-serif;padding:14px 18px;border-radius:999px;box-shadow:0 10px 28px -8px rgba(11,31,58,.6)}
+.dfloat:hover{filter:brightness(1.1)}
+@media(max-width:560px){.dbar .hide-s{display:none}}
