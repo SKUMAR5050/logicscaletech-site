@@ -25,7 +25,7 @@ var P=[
 ].map(function(a){return{id:a[0],group:a[1],title:a[2],wMM:a[3],hMM:a[4],pw:a[5],ph:a[6],minKB:a[7],maxKB:a[8],kind:a[9]}});
 var groups=cfg.groups||['Popular','More countries','India exams','Other'];
 var sel=document.getElementById('preset'),info=document.getElementById('info'),file=document.getElementById('file'),go=document.getElementById('go'),list=document.getElementById('list'),fit=document.getElementById('fit'),cw=document.getElementById('cw'),ch=document.getElementById('ch'),ck=document.getElementById('ck'),custom=document.getElementById('custom');
-var items=P.filter(function(p){return groups.indexOf(p.group)>-1});
+var items=P.filter(function(p){return cfg.ids?cfg.ids.indexOf(p.id)>-1:groups.indexOf(p.group)>-1});
 var cur=null;groups.forEach(function(g){var og=document.createElement('optgroup');og.label=g;items.filter(function(p){return p.group===g}).forEach(function(p){var o=document.createElement('option');o.value=p.id;o.textContent=p.title;og.appendChild(o)});if(og.children.length)sel.appendChild(og)});
 if(cfg.custom){var oc=document.createElement('option');oc.value='custom';oc.textContent='My own size (pixels and KB)';sel.appendChild(oc)}
 function target(p){if(p.pw)return{w:p.pw,h:p.ph};return{w:Math.round(p.wMM/INCH*300),h:Math.round(p.hMM/INCH*300)}}
@@ -60,5 +60,6 @@ go.onclick=async function(){
  }catch(e){T.msg(e.message,true)}
  go.disabled=false;
 };
+if(cfg.def){cw.value=cfg.def[0];ch.value=cfg.def[1];ck.value=cfg.def[2]}
 pick();
 })();
