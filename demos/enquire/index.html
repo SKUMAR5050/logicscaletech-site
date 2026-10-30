@@ -59,6 +59,7 @@ footer{margin-top:50px;border-top:1px solid var(--line);padding:24px 0;color:var
 <ul class="trust"><li>Free consultation</li><li>Fixed price in writing</li><li>Your name, logo and photos</li></ul>
 
 <form id="f" novalidate>
+  <div style="position:absolute;left:-9999px;height:0;overflow:hidden" aria-hidden="true"><label>Leave this empty<input type="text" id="hp" tabindex="-1" autocomplete="off"></label></div>
   <fieldset>
     <legend>1. About you</legend>
     <div class="g2">
@@ -118,14 +119,14 @@ footer{margin-top:50px;border-top:1px solid var(--line);padding:24px 0;color:var
 
   <div class="acts"><button class="btn" type="submit">Send my enquiry →</button></div>
   <p class="err" id="err" role="alert"></p>
-  <p class="note">Pressing the button opens your email app with everything filled in, addressed to support@logicscaletech.com. Just press Send there.</p>
+  <p class="note">Pressing the button sends your enquiry straight to us. No email app needed. We reply within one working day.</p>
 </form>
 
 <div class="done" id="done" role="status" aria-live="polite">
-  <h2>One last step: press Send in your email app</h2>
-  <p>Your email should have opened with the details below. If nothing opened, copy the text and send it to <b>support@logicscaletech.com</b>, or paste it in WhatsApp.</p>
+  <h2 id="dh">Sending…</h2>
+  <p id="dp">Please wait a moment.</p>
   <pre id="out"></pre>
-  <div class="acts"><button class="btn g" id="cp" type="button">Copy details</button><a class="btn" id="again" href="#">Open email again</a></div>
+  <div class="acts"><button class="btn g" id="cp" type="button">Copy details</button><a class="btn" id="again" href="#" style="display:none">Open email app</a></div>
 </div>
 
 <footer>© <span id="yr">2026</span> Logic Scale Tech, Mumbai · <a href="/">Home</a> · <a href="/demos/">Demos</a></footer>
@@ -150,8 +151,20 @@ f.addEventListener('submit',function(e){
  '\n\nWants: '+want+'\nFeatures: '+(feats.length?feats.join(', '):'-')+'\nBudget: '+v('budget')+'\nTimeline: '+v('when')+'\nNotes: '+(v('notes')||'-');
  var subject='Website/App enquiry: '+t+' - '+v('biz');
  link='mailto:support@logicscaletech.com?subject='+encodeURIComponent(subject)+'&body='+encodeURIComponent(body);
- document.getElementById('out').textContent=body;done.classList.add('on');done.scrollIntoView({behavior:'smooth',block:'start'});
- window.location.href=link;
+ var btn=f.querySelector('button[type=submit]'),dh=document.getElementById('dh'),dp=document.getElementById('dp'),again=document.getElementById('again');
+ document.getElementById('out').textContent=body;again.style.display='none';
+ dh.textContent='Sending…';dp.textContent='Please wait a moment.';done.classList.add('on');done.scrollIntoView({behavior:'smooth',block:'start'});
+ btn.disabled=true;btn.textContent='Sending…';
+ var data={name:v('name'),phone:v('phone'),email:v('email'),city:v('city'),biz:v('biz'),type:t,web:v('web'),want:want,feats:feats.join(', '),budget:v('budget'),when:v('when'),notes:v('notes'),hp:v('hp')};
+ function fallback(){dh.textContent='We could not send it automatically';dp.innerHTML='Please press <b>Open email app</b> and send the email, or copy the details below and send them to <b>support@logicscaletech.com</b>.';again.style.display='';btn.disabled=false;btn.textContent='Send my enquiry →';window.location.href=link}
+ var ctl=window.AbortController?new AbortController():null,timer=setTimeout(function(){if(ctl)ctl.abort()},20000);
+ fetch('/api/enquiry',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(data),signal:ctl?ctl.signal:undefined})
+ .then(function(r){return r.json().then(function(j){return {ok:r.ok&&j&&j.ok,j:j}})})
+ .then(function(x){clearTimeout(timer);
+  if(x.ok){dh.textContent='Thank you, '+v('name').split(' ')[0]+'! We got your enquiry.';dp.textContent='We will reply within one working day on the phone number or email you gave. A copy of your details is below for your records.';btn.textContent='Sent ✓';f.reset();so()}
+  else if(x.j&&x.j.error&&/fill your name/i.test(x.j.error)){dh.textContent='Please check your details';dp.textContent=x.j.error;btn.disabled=false;btn.textContent='Send my enquiry →'}
+  else fallback()})
+ .catch(function(){clearTimeout(timer);fallback()});
 });
 document.getElementById('again').onclick=function(e){e.preventDefault();if(link)window.location.href=link};
 document.getElementById('cp').onclick=function(){var t=document.getElementById('out').textContent,b=this;
