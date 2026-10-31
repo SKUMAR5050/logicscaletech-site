@@ -24,7 +24,7 @@ var st=document.createElement('style');st.textContent='.fb{margin:28px 0 0;paddi
 var t=document.title.split('|')[0].trim();
 function mail(sub,body){return 'mailto:support@logicscaletech.com?subject='+encodeURIComponent(sub)+'&body='+encodeURIComponent(body)}
 var d=document.createElement('div');d.className='fb';d.setAttribute('role','group');d.setAttribute('aria-label','Feedback');
-d.innerHTML='<b>Was this tool helpful?</b><span id="fbq"><button type="button" id="fby">Yes, it worked</button><button type="button" id="fbn">Not really</button></span><span id="fba"></span><small>Tell us what to fix or which tool to add next. Your files are never sent to us.</small>';
+d.innerHTML='<b>Was this tool helpful?</b><span id="fbq"><button type="button" id="fby">Yes, it worked</button><button type="button" id="fbn">Not really</button></span><span id="fba"></span><small>Tell us what to fix or which tool to add next. Your files are never sent to us.</small><small style="margin-top:10px">Need a website or app for your business? <a href="https://ig.me/m/logicscaletech" rel="noopener" target="_blank" style="color:#2F4BD6;font-weight:600">Message us on Instagram</a> or <a href="/demos/enquire/" style="color:#2F4BD6;font-weight:600">get a quote</a>.</small>';
 anchor.parentNode.insertBefore(d,anchor);
 var q=d.querySelector('#fbq'),a=d.querySelector('#fba');
 d.querySelector('#fby').onclick=function(){q.style.display='none';a.innerHTML='<p style="margin:0 0 8px">Thank you! Glad it helped.</p><a class="b" href="'+mail('Feedback: '+t,'What I liked or what tool I would like next:\n\n\nPage: '+location.href)+'">Suggest a tool or improvement</a>'};
