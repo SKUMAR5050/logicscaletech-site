@@ -68,7 +68,7 @@
   </url>
   <url>
     <loc>https://logicscaletech.com/tools/qr-code-generator/</loc>
-    <lastmod>2026-10-25</lastmod>
+    <lastmod>2026-10-31</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
@@ -86,7 +86,7 @@
   </url>
   <url>
     <loc>https://logicscaletech.com/tools/contact-qr-code-generator/</loc>
-    <lastmod>2026-10-25</lastmod>
+    <lastmod>2026-10-31</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
@@ -110,25 +110,25 @@
   </url>
   <url>
     <loc>https://logicscaletech.com/demos/clinic/</loc>
-    <lastmod>2026-10-25</lastmod>
+    <lastmod>2026-10-31</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://logicscaletech.com/demos/salon/</loc>
-    <lastmod>2026-10-25</lastmod>
+    <lastmod>2026-10-31</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://logicscaletech.com/demos/grocery/</loc>
-    <lastmod>2026-10-25</lastmod>
+    <lastmod>2026-10-31</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://logicscaletech.com/demos/cakeshop/</loc>
-    <lastmod>2026-10-25</lastmod>
+    <lastmod>2026-10-31</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -201,6 +201,10 @@
   <url>
     <loc>https://logicscaletech.com/tools/bank-exam-photo-and-signature-size/</loc>
     <lastmod>2026-10-30</lastmod>
+  </url>
+  <url>
+    <loc>https://logicscaletech.com/tools/resize-photo-in-kb-and-pixels/</loc>
+    <lastmod>2026-10-31</lastmod>
   </url>
   <url>
     <loc>https://logicscaletech.com/tools/image-converter/</loc>
